@@ -1,9 +1,9 @@
 let api = function everything() {
     if (this.target == 'undefined') return new everything();
 
-    const arrayEquality = (stopOnException, ...arrs) => {
-        let non_included_elements = new Set();
-        if (arrs.length <= 1) return true;
+    const arrayEquality = (stopOnException, ...arrs) => {   // this should be changed so that it actually creates a copy of each array and after 
+        let non_included_elements = new Set();              // each match the element is removed from the array [1, 2, 3] and [1, 3, 3] only returns 
+        if (arrs.length <= 1) return true;                  // [2] as the difference
         const length = arrs[0].length;
 
         if (!arrs.every(arr => arr.length == length) && stopOnException) return false;
@@ -26,10 +26,7 @@ let api = function everything() {
         }
 
         if (stopOnException) return true;
-        else {
-            if (non_included_elements.size == 0) return false;
-            else return Array.from(non_included_elements);
-        }
+        else return Array.from(non_included_elements);
 
         function handleAddElementToSet(element, set) {
             if (typeof element == 'object') return handleObject(element, array);
